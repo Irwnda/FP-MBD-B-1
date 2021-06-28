@@ -3910,3 +3910,8 @@ ALTER TABLE ONLY employees
 -- PostgreSQL database dump complete
 --
 
+ALTER TABLE order_details
+	ADD coupon_code varchar(10),
+	ADD total_price int,
+	DROP COLUMN discount
+;
