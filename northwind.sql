@@ -3909,3 +3909,10 @@ ALTER TABLE ONLY employees
 --
 -- PostgreSQL database dump complete
 --
+
+ALTER TABLE orders
+    ALTER COLUMN order_id TYPE int;
+ALTER TABLE order_details
+    ALTER COLUMN order_id TYPE int,
+    ADD COLUMN coupon_code VARCHAR(10),
+    ADD COLUMN total_price REAL;
