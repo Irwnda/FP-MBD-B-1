@@ -1,5 +1,5 @@
 CREATE TABLE coupons(
-  code varchar(10) PRIMARY KEY,
+  coupon_code varchar(10) PRIMARY KEY,
   discount real,
   min_freight real,
   valid_date date,
