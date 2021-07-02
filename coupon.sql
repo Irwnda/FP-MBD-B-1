@@ -1,6 +1,5 @@
 CREATE TABLE coupons(
-  coupon_id smallint PRIMARY KEY,
-  code varchar(10),
+  code varchar(10) PRIMARY KEY,
   discount real,
   min_freight real,
   valid_date date,
