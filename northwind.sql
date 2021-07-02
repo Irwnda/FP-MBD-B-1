@@ -3911,8 +3911,9 @@ ALTER TABLE ONLY employees
 --
 
 ALTER TABLE orders
-    ALTER COLUMN order_id TYPE int;
-ALTER TABLE order_details
     ALTER COLUMN order_id TYPE int,
     ADD COLUMN coupon_code VARCHAR(10),
     ADD COLUMN total_price REAL;
+ALTER TABLE order_details
+    ALTER COLUMN order_id TYPE int,
+    DROP COLUMN discount;
