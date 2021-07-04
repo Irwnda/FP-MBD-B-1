@@ -3916,4 +3916,5 @@ ALTER TABLE orders
     ADD COLUMN total_price REAL;
 ALTER TABLE order_details
     ALTER COLUMN order_id TYPE int,
+    ADD COLUMN total_price REAL,
     DROP COLUMN discount;
