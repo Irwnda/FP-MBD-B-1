@@ -3835,14 +3835,6 @@ ALTER TABLE ONLY order_details
 
 
 --
--- Name: fk_order_details_orders; Type: Constraint; Schema: -; Owner: -
---
-
-ALTER TABLE ONLY order_details
-    ADD CONSTRAINT fk_order_details_orders FOREIGN KEY (order_id) REFERENCES orders;
-
-
---
 -- Name: fk_products_categories; Type: Constraint; Schema: -; Owner: -
 --
 
@@ -3921,3 +3913,11 @@ ALTER TABLE order_details
     ALTER COLUMN product_id TYPE int;
 ALTER TABLE products
     ALTER COLUMN product_id TYPE int;
+    
+
+
+--
+-- Name: fk_order_details_orders; Type: Constraint; Schema: -; Owner: -
+--
+-- uncomment to add fk
+-- ALTER TABLE ONLY order_details ADD CONSTRAINT fk_order_details_orders FOREIGN KEY (order_id) REFERENCES orders;
