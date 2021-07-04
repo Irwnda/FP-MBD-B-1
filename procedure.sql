@@ -68,7 +68,7 @@ END; $$;
 
 CALL add_total_price_order_details();
 -- ======================================================================================================== --
-CREATE OR REPLACE PROCEDURE add_order_detail(p_order_id int, p_product_id smallint, p_quantity smallint)
+CREATE OR REPLACE PROCEDURE add_order_detail(p_order_id int, p_product_id int, p_quantity int)
 LANGUAGE plpgsql
 AS $$
 DECLARE
