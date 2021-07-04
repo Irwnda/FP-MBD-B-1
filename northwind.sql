@@ -3904,6 +3904,9 @@ ALTER TABLE ONLY employees
 
 ALTER TABLE orders
     ALTER COLUMN order_id TYPE int,
+	ALTER COLUMN ship_city TYPE VARCHAR(30),
+    ALTER COLUMN ship_region TYPE VARCHAR(30),
+    ALTER COLUMN ship_country TYPE VARCHAR(30),
     ADD COLUMN coupon_code VARCHAR(10),
     ADD COLUMN total_price REAL;
 ALTER TABLE order_details

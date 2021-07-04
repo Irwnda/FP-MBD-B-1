@@ -4,10 +4,10 @@ AS $$
 DECLARE
     v_ship_name character varying(40);
     v_ship_address character varying(60);
-    v_ship_city character varying(15);
-    v_ship_region character varying(15);
+    v_ship_city character varying(30);
+    v_ship_region character varying(30);
     v_ship_postal_code character varying(10);
-    v_ship_country character varying(15);
+    v_ship_country character varying(30);
     
     v_total_price REAL;
     v_discount REAL;
