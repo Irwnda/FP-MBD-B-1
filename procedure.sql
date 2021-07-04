@@ -83,5 +83,6 @@ BEGIN
     SELECT v_unit_price*p_quantity INTO v_total_price;
 
     INSERT INTO order_details 
-    VALUES(p_order_id, p_product_id, v_unit_price, p_quantity, v_total_price);
+    VALUES(p_order_id, p_product_id, v_unit_price, p_quantity, v_total_price)
+    ON CONFLICT (p_order_id, p_product_id) DO NOTHING;
 END; $$;
