@@ -4,10 +4,10 @@ AS $$
 DECLARE
     v_ship_name character varying(40);
     v_ship_address character varying(60);
-    v_ship_city character varying(30);
-    v_ship_region character varying(30);
-    v_ship_postal_code character varying(10);
-    v_ship_country character varying(30);
+    v_ship_city character varying(100);
+    v_ship_region character varying(100);
+    v_ship_postal_code character varying(30);
+    v_ship_country character varying(100);
     
     v_total_price REAL;
     v_discount REAL;
@@ -35,7 +35,11 @@ BEGIN
     GROUP BY order_id;
 
     INSERT INTO orders
-    VALUES(p_order_id, p_customer_id, p_employee_id, p_order_date, p_required_date, p_shipped_date, p_ship_via, p_freight, v_ship_name, v_ship_address, v_ship_city, v_ship_region, v_ship_postal_code, v_ship_country, p_coupon, v_total_price*(1-v_discount));
+    VALUES(p_order_id, p_customer_id, p_employee_id, p_order_date, p_required_date, p_shipped_date, p_ship_via, p_freight, v_ship_name, v_ship_address, v_ship_city, v_ship_region, v_ship_postal_code, v_ship_country, p_coupon, v_total_price*(1-v_discount))
+    ON CONFLICT DO NOTHING;
+	
+	EXCEPTION
+	WHEN foreign_key_violation THEN
 END; $$;
 
 -- ======================================================================================================== --
@@ -84,5 +88,5 @@ BEGIN
 
     INSERT INTO order_details 
     VALUES(p_order_id, p_product_id, v_unit_price, p_quantity, v_total_price)
-    ON CONFLICT (p_order_id, p_product_id) DO NOTHING;
+    ON CONFLICT DO NOTHING;
 END; $$;
