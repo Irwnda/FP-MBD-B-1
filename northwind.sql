@@ -131,7 +131,7 @@ CREATE TABLE employee_territories (
 
 CREATE TABLE order_details (
     order_id smallint NOT NULL,
-    product_id int NOT NULL,
+    product_id smallint NOT NULL,
     unit_price real NOT NULL,
     quantity smallint NOT NULL,
     discount real NOT NULL
@@ -165,7 +165,7 @@ CREATE TABLE orders (
 --
 
 CREATE TABLE products (
-    product_id int NOT NULL,
+    product_id smallint NOT NULL,
     product_name character varying(40) NOT NULL,
     supplier_id smallint,
     category_id smallint,
@@ -3917,4 +3917,7 @@ ALTER TABLE orders
 ALTER TABLE order_details
     ALTER COLUMN order_id TYPE int,
     ADD COLUMN total_price REAL,
-    DROP COLUMN discount;
+    DROP COLUMN discount,
+    ALTER COLUMN product_id TYPE int;
+ALTER TABLE products
+    ALTER COLUMN product_id TYPE int;
