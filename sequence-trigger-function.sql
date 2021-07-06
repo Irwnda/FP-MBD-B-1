@@ -13,7 +13,8 @@ LANGUAGE plpgsql
 AS $$
 BEGIN
     INSERT INTO orders (order_id, customer_id, employee_id, order_date, required_date, shipped_date, ship_via, freight, coupon_code)
-    VALUES(0, p_customer_id, p_employee_id, p_order_date, p_required_date, p_shipped_date, p_ship_via, p_freight, p_coupon);
+    VALUES(nextval('seq_order_id'), p_customer_id, p_employee_id, p_order_date, p_required_date, p_shipped_date, p_ship_via, p_freight, p_coupon)
+	ON CONFLICT DO NOTHING;
 END; $$;
 
 -- ======================================================================================= --
@@ -22,7 +23,7 @@ CREATE OR REPLACE FUNCTION add_new_order()
   RETURNS TRIGGER 
   LANGUAGE PLPGSQL
   AS
-$$
+$f$
 DECLARE
     v_ship_name character varying(40);
     v_ship_address character varying(60);
@@ -37,6 +38,7 @@ DECLARE
     kupon_kadaluarsa DATE;
     min_beli REAL;
 BEGIN
+	RAISE NOTICE 'OK';
     SELECT company_name, address, city, region, postal_code, country
     INTO v_ship_name, v_ship_address, v_ship_city, v_ship_region, v_ship_postal_code, v_ship_country
     FROM customers
@@ -57,7 +59,7 @@ BEGIN
     GROUP BY order_id;
 
     INSERT INTO orders
-    VALUES(nextval('seq_order_id'), NEW.customer_id, NEW.employee_id, NEW.order_date, NEW.required_date, NEW.shipped_date, NEW.ship_via, NEW.freight, v_ship_name, v_ship_address, v_ship_city, v_ship_region, v_ship_postal_code, v_ship_country, NEW.coupon_code, v_total_price*(1-v_discount))
+    VALUES(NEW.order_id, NEW.customer_id, NEW.employee_id, NEW.order_date, NEW.required_date, NEW.shipped_date, NEW.ship_via, NEW.freight, v_ship_name, v_ship_address, v_ship_city, v_ship_region, v_ship_postal_code, v_ship_country, NEW.coupon_code, v_total_price*(1-v_discount))
     ON CONFLICT DO NOTHING;
 	
 	RETURN NEW;
@@ -65,7 +67,7 @@ BEGIN
 	EXCEPTION
 	WHEN foreign_key_violation THEN
 END;
-$$;
+$f$;
 
 -- ======================================================================================= --
 
@@ -77,4 +79,4 @@ EXECUTE PROCEDURE add_new_order();
 
 -- ======================================================================================= --
 
--- CALL add_order('AVOELKER6V', 879::smallint, DATE('1998-09-07'), DATE('1998-09-19'), DATE(null), 2::smallint, 289, 'DJFOGQDIEW');
+-- CALL add_order('AVOELKER6V', 879::smallint, DATE('2005-12-31'), DATE('2006-01-20'), DATE(null), 2::smallint, 289, 'DJFOGQDIEW');
