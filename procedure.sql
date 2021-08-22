@@ -32,6 +32,7 @@ BEGIN
     SELECT SUM(total_price)
     INTO v_total_price
     FROM order_details
+    WHERE order_id = p_order_id
     GROUP BY order_id;
 
     INSERT INTO orders
